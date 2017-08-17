@@ -6,7 +6,10 @@ using namespace std;
 
 int vertex; // vertex / node of the graph
 int edge; // edge / connection of the graph
+vector<int>sequence;
+int startingNode; // starting node to traverse the graph
 vector<int>graph[100]; // graph to traverse
+bool visited[100] = {false}; // checking the node has been visited or not
 
 void inputGraphData(int a, int b){
     graph[a].push_back(b);
@@ -21,6 +24,22 @@ void createGraph(){
     }
 }
 
+void dfs(int startingNode){
+    visited[startingNode-1]=true;
+    sequence.push_back(startingNode);
+    for(int i=0; i<graph[startingNode-1].size(); i++){
+        if(!visited[graph[startingNode-1][i]]){
+            dfs(graph[startingNode-1][i]);
+        }
+    }
+}
+
+void displaySequence(){
+    for(int i=0; i<sequence.size(); i++){
+        cout << sequence[i] << endl;
+    }
+}
+
 void displayGraph(){
     for(int i=0; i<vertex; i++){
         for(int j=0; j<graph[i].size(); j++){
@@ -31,12 +50,12 @@ void displayGraph(){
 }
 
 int main(){
-    // taking the number of node
-    cin >> vertex;
-    // taking the number of connection
-    cin >> edge;
-    //cout << vertex << " " << edge << endl;
+    cin >> vertex; // taking the number of node
+    cin >> edge; // taking the number of connection
     createGraph();
-    displayGraph();
+    //displayGraph(); // just for checking that 2d vector is working
+    //cin >> startingNode;
+    dfs(1);
+    displaySequence();
     return 0;
 }
