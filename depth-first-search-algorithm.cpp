@@ -25,19 +25,16 @@ void createGraph(){
 }
 
 void dfs(int startingNode){
-    if(!visited[startingNode-1]){
-        visited[startingNode-1]=true;
-        sequence.push_back(startingNode);
-        for(int i=0; i<graph[startingNode-1].size(); i++){
-            //cout << graph[startingNode-1][i] << endl;
-            if(!visited[graph[startingNode-1][i]]){
-                //dfs(graph[startNode-1][i]);
-                cout << i << endl;
-                //cout << "working" << graph[startingNode-1][0] << endl;
-            }
+    visited[startingNode]=true;
+    sequence.push_back(startingNode);
+    for(int i=0; i<graph[startingNode].size(); i++){
+        //cout << graph[startingNode-1][i] << endl;
+        if(!visited[graph[startingNode][i]]){
+            dfs(graph[startingNode][i]);
+            //cout << graph[startingNode][i] << endl;
+            //cout << "working" << graph[startingNode-1][0] << endl;
         }
     }
-    else return;
 }
 
 void displaySequence(){
@@ -63,7 +60,7 @@ int main(){
     //cin >> startingNode;
     dfs(1);
     //cout << sequence.size() << endl;
-    //displaySequence();
+    displaySequence();
     //for(int i=0; i<vertex; i++) cout << visited[i] << endl;
     return 0;
 }
